@@ -140,10 +140,21 @@ $(document).ready(function () {
                 }
             },
             submitHandler: function (form) {
+                form.addEventListener("submit", (e) => e.preventDefault());
+                const submitter = form.querySelector("button#submit");
+                const formData = new FormData(form, submitter);
+                
+                const data = {
+                    name: formData.get("name"),
+                    email: formData.get("email"),
+                    phone: formData.get("phone"),
+                    message: formData.get("message")
+                };
+
                 $(form).ajaxSubmit({
                     type: "POST",
-                    data: $(form).serialize(),
-                    url: "process.php",
+                    data: data,
+                    url: "https://formsubmit.co/somukalal9740@gmail.com",
                     success: function () {
                         $('#contact :input').attr('disabled', 'disabled');
                         $('#contact').fadeTo("slow", 1, function () {
